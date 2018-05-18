@@ -1,0 +1,17 @@
+Requerimientos genericos:
+
+-acceso de administración para la secretaria
+-acceso a entrenadores físicos
+-registro de clientes
+-asignación de rutinas
+-registro evolución del cliente
+-historial con:
+	-registro de peso
+	-IMC
+	-historial de cambios en rutina (ej: rutina1->20 flexiones... 2 semanas despues, misma rutina1->40 flexiones)
+-permitir reservar horas
+-ver plan de rutinas asignadas a cliente
+
+Se infiere que:
+-secretaria y preparador físico puede registrar a cliente
+-espacio máximo de clientes determinado por cada gimnasio
