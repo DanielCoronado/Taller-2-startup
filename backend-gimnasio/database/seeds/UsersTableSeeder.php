@@ -12,15 +12,27 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'Felipe Acuña',
-            'email' => 'f.acuna08@ufromail.cl',
+            'email' => 'm.gutierrez06@ufromail.cl',
             'password' => bcrypt('1234'),
+            'id_rol' => 1
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Daniel Coronado',
+            'email' => 'f.acuna08@ufromail.cl',
+            'password' => bcrypt('1234'),
+            'id_rol' => 2
+        ]);
+
+        DB::table('users')->insert([
             'email' => 'd.coronado01@ufromail.cl',
             'password' => bcrypt('1234'),
+            'id_rol' => 3
+        ]);
+
+        DB::table('users')->insert([
+            'email' => 'm.pinilla03@ufromail.cl',
+            'password' => bcrypt('1234'),
+            'id_rol' => 3
         ]);
     }
 }

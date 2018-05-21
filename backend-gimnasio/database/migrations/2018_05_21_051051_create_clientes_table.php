@@ -13,9 +13,9 @@ class CreateClientesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cliente', function (Blueprint $table) {
+        Schema::create('clientes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_usuario');
+            $table->integer('id_usuario')->unsigned();
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->string('rut', 10);
             $table->string('nombre');

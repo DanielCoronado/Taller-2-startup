@@ -15,8 +15,8 @@ class CreateReservaHorasTable extends Migration
     {
         Schema::create('reserva_horas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_cliente');
-            $table->foreign('id_cliente')->references('id')->on('cliente')->onDelete('cascade');
+            $table->integer('id_cliente')->unsigned();
+            $table->foreign('id_cliente')->references('id')->on('clientes')->onDelete('cascade');
             $table->time('hora_inicio');
             $table->time('hora_termino');
             $table->date('fecha_reserva');
