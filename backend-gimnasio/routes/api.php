@@ -15,6 +15,18 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => ['jwt.auth']], function () {
 	Route::resource('users' , 'UserController');
+
+	Route::resource('clientes' , 'ClienteController');
+
+	Route::resource('rol' , 'RolController');
+
+	Route::resource('rutinas' , 'RutinaController');
+
+	Route::resource('tipo_rutinas' , 'TipoRutinaController');
+
+	Route::resource('progreso' , 'RegistroProgresoController');
+
+	Route::resource('reserva' , 'ReservaHorasController');
 });
 
 //Ruta para Login
