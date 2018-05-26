@@ -17,6 +17,5 @@ class DatabaseSeeder extends Seeder
         $this->call(ClientesTableSeeder::class);
         $this->call(RutinaTableSeeder::class);
         $this->call(RegistroProgresoTableSeeder::class);
-        $this->call(ReservaHoraTableSeeder::class);
     }
 }
