@@ -22,10 +22,6 @@ class Cliente extends Model
     	return $this->hasMany(Rutina::class, 'id_cliente');
     }
 
-    public function reserva_horas(){
-    	return $this->hasMany(ReservaHoras::class, 'id_cliente');
-    }
-
     public function registro_progreso(){
     	return $this->hasMany(RegistroProgreso::class, 'id_cliente');
     }

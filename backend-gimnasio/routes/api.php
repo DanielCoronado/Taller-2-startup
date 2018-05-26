@@ -25,8 +25,6 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 	Route::resource('tipo_rutinas' , 'TipoRutinaController');
 
 	Route::resource('progreso' , 'RegistroProgresoController');
-
-	Route::resource('reserva' , 'ReservaHorasController');
 });
 
 //Ruta para Login
