@@ -18,13 +18,13 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 
 	Route::resource('clientes' , 'ClienteController');
 
-	Route::resource('rol' , 'RolController');
+	Route::resource('roles' , 'RolController');
 
 	Route::resource('rutinas' , 'RutinaController');
 
-	Route::resource('tipo_rutinas' , 'TipoRutinaController');
+	Route::resource('tipos_rutinas' , 'TipoRutinaController');
 
-	Route::resource('progreso' , 'RegistroProgresoController');
+	Route::resource('progresos' , 'RegistroProgresoController');
 });
 
 //Ruta para Login

@@ -16,7 +16,7 @@ class RegistroProgresoTableSeeder extends Seeder
             'id_cliente' => 1,
             'altura' => 1.75,
             'peso' => 85.5,
-            'imc' => 27.9183,
+            'imc' => 27.91,
             'fecha_registro' => Carbon::now()
         ]);
 
@@ -24,7 +24,7 @@ class RegistroProgresoTableSeeder extends Seeder
             'id_cliente' => 2,
             'altura' => 1.73,
             'peso' => 87,
-            'imc' => 29.0687,
+            'imc' => 29.06,
             'fecha_registro' => Carbon::now()
         ]);
     }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\RegistroProgreso;
+use App\Cliente;
+use Carbon\Carbon;
 
 class RegistroProgresoController extends Controller
 {
@@ -25,8 +27,30 @@ class RegistroProgresoController extends Controller
      */
     public function store(Request $request)
     {
-        RegistroProgreso::create($request->all());
-        return ['created' => true];
+        $cliente = Cliente::find($request->cliente);
+
+        if (!isset($cliente)) {
+            $datos = [
+                'error' => true,
+                'mensaje' => 'No se encontró el cliente de id = ' . $request->cliente,
+            ];
+            return \Response::json($datos, 404);
+        }
+        
+        $progreso = new RegistroProgreso;
+        $progreso->altura = $request->altura;
+        $progreso->peso = $request->peso;
+        $progreso->imc = round(($request->peso / ($request->altura * $request->altura)), 2, PHP_ROUND_HALF_UP);
+        $progreso->id_cliente = $request->cliente;
+        $progreso->fecha_registro = Carbon::now()->toDateString();
+        $progreso->save();
+
+        $datos = [
+            'created' => true,
+            'registro' => $progreso,
+        ];
+
+        return \Response::json($datos, 200);
     }
 
     /**
@@ -37,7 +61,17 @@ class RegistroProgresoController extends Controller
      */
     public function show($id)
     {
-        return RegistroProgreso::find($id);
+        $progreso = RegistroProgreso::find($id);
+
+        if (!isset($cliente)) {
+            $datos = [
+                'error' => true,
+                'mensaje' => 'No se encontró el cliente de id = ' . $request->cliente,
+            ];
+            return \Response::json($datos, 404);
+        }
+        
+        return $progreso;
     }
 
     /**
