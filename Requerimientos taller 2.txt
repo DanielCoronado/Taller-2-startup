@@ -9,7 +9,6 @@ Requerimientos genericos:
 	-registro de peso
 	-IMC
 	-historial de cambios en rutina (ej: rutina1->20 flexiones... 2 semanas despues, misma rutina1->40 flexiones)
--permitir reservar horas
 -ver plan de rutinas asignadas a cliente
 
 Se infiere que:
