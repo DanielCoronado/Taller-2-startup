@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Carbon\Carbon;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -24,8 +25,10 @@ class AuthController extends Controller
 			return response()->json(['error' => 'could_not_create_token'], 500);
 		}
 
+		$datos = User::join('rol', 'users.id_rol', '=', 'rol.id')->join('clientes', 'users.id', '=', 'clientes.id_usuario')->select('users.email', 'rol.id as id_rol', 'rol.descripcion as rol', 'clientes.rut','clientes.nombre', 'clientes.apellidos', 'clientes.edad')->where('users.email', $request->email)->first();
+
 		// all good so return the token
-		return response()->json(['token' => 'Bearer ' . $token, 'email' => $request->email]); 
+		return response()->json(['token' => 'Bearer ' . $token, 'users' => $datos]); 
 	}
 
 	public function getAuthenticatedUser() 
