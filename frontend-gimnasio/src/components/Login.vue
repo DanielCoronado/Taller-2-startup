@@ -70,7 +70,12 @@ export default {
       loginService.save(credentials).then(data => {
         vm.credentialService.setToken(data.body.token)
         vm.credentialService.setCurrentUser(data.body.users)
-        vm.$router.push('/')
+        var rol = data.body.users.rol
+        if (rol === 'Secretaria') {
+          vm.$router.push('/')
+        } else if (rol === 'Entrenador') {
+          vm.$router.push('/')
+        }
       }, () => {
         vm.errorLogin = true
         vm.isLoading = false

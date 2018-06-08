@@ -1,10 +1,10 @@
 class CredentialsService {
   setCurrentUser (user) {
-    localStorage.setItem('user', user)
+    localStorage.setItem('user', JSON.stringify(user))
   }
   getCurrentUser () {
     let user = localStorage.getItem('user')
-    return user
+    return JSON.parse(user)
   }
 
   setToken (token) {

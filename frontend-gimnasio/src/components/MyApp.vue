@@ -17,8 +17,8 @@
               <img src="https://randomuser.me/api/portraits/men/85.jpg" >
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title>John Acuña</v-list-tile-title>
-              <h6>Rol de usuario</h6>
+              <v-list-tile-title style="color: #a2d4ab;">{{ user.nombre + " " + user.apellidos }}</v-list-tile-title>
+              <h5 style="color: #3eaca8;">{{ user.rol }}</h5>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -34,7 +34,7 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-      <v-list class="pt-0" dense style="background: transparent;">
+      <v-list class="pt-0" dense style="background: transparent;" v-if="user.rol == 'Secretaria'">
         <v-list-tile @click="goToClientes()">
           <v-list-tile-action>
             <v-icon>people</v-icon>
@@ -44,8 +44,8 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-      <v-list class="pt-0" dense style="background: transparent;">
-        <v-list-tile @click="">
+      <v-list class="pt-0" dense style="background: transparent;" v-if="user.rol == 'Secretaria'">
+        <v-list-tile @click="goHome()">
           <v-list-tile-action>
             <v-icon>directions_run</v-icon>
           </v-list-tile-action>
@@ -54,8 +54,8 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-      <v-list class="pt-0" dense style="background: transparent;">
-        <v-list-tile @click="">
+      <v-list class="pt-0" dense style="background: transparent;" v-if="user.rol == 'Entrenador'">
+        <v-list-tile @click="goHome()">
           <v-list-tile-action>
             <v-icon>fitness_center</v-icon>
           </v-list-tile-action>
@@ -98,13 +98,12 @@ export default {
       fixed: false,
       miniVariant: false,
       title: 'Gym-Fit',
-      user: '',
+      user: {},
       credenciales: new CredentialsService()
     }
   },
   mounted () {
     let vm = this
-
     vm.user = vm.credenciales.getCurrentUser()
   },
   methods: {
