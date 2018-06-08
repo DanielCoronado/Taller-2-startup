@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cliente;
+use App\User;
 
 class ClienteController extends Controller
 {
@@ -25,7 +26,20 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        Cliente::create($request->all());
+        $usuario = new User();
+        $usuario->email = $request->email;
+        $usuario->password = bcrypt($request->password);
+        $usuario->id_rol = 3;
+        $usuario->save();
+
+        $cliente = new Cliente();
+        $cliente->id_usuario = $usuario->id;
+        $cliente->rut = $request->rut;
+        $cliente->nombre = $request->nombre;
+        $cliente->apellidos = $request->apellidos;
+        $cliente->edad = $request->edad;
+        $cliente->save();
+
         return ['created' => true];
     }
 
