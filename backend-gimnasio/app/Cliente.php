@@ -10,6 +10,8 @@ class Cliente extends Model
 
     protected $primaryKey = 'id';
 
+    public $timestamps = false;
+
     protected $fillable = [
     	'id_usuario', 'rut', 'nombre', 'apellidos', 'edad',
     ];
