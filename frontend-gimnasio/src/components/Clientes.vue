@@ -29,21 +29,24 @@
                       color="light-green lighten-1" 
                       dark 
                       label="Email"
-                      :readonly="lectura" 
+                      type="text"
                       :rules="rules"
-                      v-model="usuario.email"   
-                      required></v-text-field>
+                      v-model="nuevoCliente.email" 
+                      required
+                      >
+                    </v-text-field>
                   </v-flex>
                   <v-flex xs12>
                     <v-text-field 
                       color="light-green lighten-1" 
                       dark 
                       label="Password" 
-                      type="password" 
-                      :readonly="lectura" 
+                      type="password"
                       :rules="rules"
-                      v-model="usuario.password"  
-                      required></v-text-field>
+                      v-model="nuevoCliente.password"  
+                      required
+                      >
+                    </v-text-field>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -55,14 +58,14 @@
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout wrap>
-                  <v-flex xs12 sm6 md6>
+                  <v-flex xs12 sm12 md12>
                     <v-text-field 
                       color="light-green lighten-1" 
                       dark 
-                      label="Nombre" 
-                      :readonly="lectura" 
+                      label="Rut"
+                      type="text"
                       :rules="rules" 
-                      v-model="clientes.nombre" 
+                      v-model="nuevoCliente.rut" 
                       required
                       >
                     </v-text-field>
@@ -71,10 +74,10 @@
                     <v-text-field 
                       color="light-green lighten-1" 
                       dark 
-                      label="Apellidos" 
-                      :readonly="lectura" 
+                      label="Nombre"
+                      type="text"
                       :rules="rules" 
-                      v-model="clientes.apellidos" 
+                      v-model="nuevoCliente.nombre" 
                       required
                       >
                     </v-text-field>
@@ -83,10 +86,10 @@
                     <v-text-field 
                       color="light-green lighten-1" 
                       dark 
-                      label="Rut" 
-                      :readonly="lectura" 
+                      label="Apellidos"
+                      type="text"
                       :rules="rules" 
-                      v-model="clientes.rut" 
+                      v-model="nuevoCliente.apellidos" 
                       required
                       >
                     </v-text-field>
@@ -95,10 +98,9 @@
                     <v-text-field 
                       color="light-green lighten-1" 
                       dark 
-                      label="Edad" 
-                      :readonly="lectura" 
+                      label="Edad"
                       :rules="rules" 
-                      v-model="clientes.edad" 
+                      v-model="nuevoCliente.edad" 
                       required
                       >
                     </v-text-field>
@@ -111,7 +113,7 @@
             <v-card-actions>
               <v-btn color="blue darken-1" flat @click="dialog = false">Cancelar</v-btn>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" flat @click="registrarCliente(usuario, clientes)">Guardar</v-btn>
+              <v-btn color="blue darken-1" flat @click="registrarCliente(nuevoCliente)">Guardar</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -141,7 +143,6 @@
 
 <script>
 import {clienteService} from '@/services/Clientes.service'
-import {userService} from '@/services/User.service'
 
 export default {
   data () {
@@ -160,9 +161,8 @@ export default {
         { text: 'Edad', value: 'edad' }
       ],
       clientes: [],
-      usuario: {},
+      nuevoCliente: {},
       dialog: false,
-      lectura: false,
       rules: [
         v => !!v || 'Campo Requerido'
       ]
@@ -178,31 +178,17 @@ export default {
     })
   },
   methods: {
-    registrarCliente (usuario, clientes) {
+    registrarCliente (nuevoCliente) {
       let vm = this
-
-      userService.save(usuario).then(data => {
-        console.log(data)
-        vm.usuario = data.body
+      clienteService.save(nuevoCliente).then(data => {
+        vm.nuevoCliente = data.body
+        vm.clientes.push(nuevoCliente)
+        vm.dialog = false
+        vm.nuevoCliente = {}
       }, err => {
-        alert('error')
+        alert('ERROR. Intente nuevamente')
         console.log(err)
       })
-
-      clienteService.save(clientes).then(data => {
-        console.log(data)
-        vm.clientes = data.body
-        vm.closeDialog()
-        vm.clientes.push(clientes)
-      }, err => {
-        alert('error')
-        console.log(err)
-      })
-    },
-    closeDialog () {
-      let vm = this
-      vm.$emit('closeDialog')
-      vm.clientes = {}
     }
   }
 }
