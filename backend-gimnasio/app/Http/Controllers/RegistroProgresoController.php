@@ -25,32 +25,46 @@ class RegistroProgresoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, AuthController $auth)
     {
-        $cliente = Cliente::find($request->cliente);
+        try {
+            if ($auth->getAuthenticatedUser()->id_rol != 2) {
+                $datos = [
+                    'error' => true,
+                    'mensaje' => 'El usuario no está autorizado para realizar esta acción',
+                ];
+                return \Response::json($datos, 401);
+            }
 
-        if (!isset($cliente)) {
+            $cliente = Cliente::find($request->cliente);
+
+            if (!isset($cliente)) {
+                $datos = [
+                    'error' => true,
+                    'mensaje' => 'No se encontró el cliente de id = ' . $request->cliente,
+                ];
+                return \Response::json($datos, 404);
+            }
+            
+            $progreso = new RegistroProgreso;
+            $progreso->altura = $request->altura;
+            $progreso->peso = $request->peso;
+            $progreso->imc = round(($request->peso / ($request->altura * $request->altura)), 2, PHP_ROUND_HALF_UP);
+            $progreso->id_cliente = $request->cliente;
+            $progreso->fecha_registro = Carbon::now()->toDateString();
+            $progreso->save();
+
             $datos = [
-                'error' => true,
-                'mensaje' => 'No se encontró el cliente de id = ' . $request->cliente,
+                'creado' => true,
+                'registro' => $progreso,
             ];
-            return \Response::json($datos, 404);
+
+            return \Response::json($datos, 200);
+
+        } catch (\Exception $e) {
+            return \Response::json('Error: '.$e, 500);
         }
         
-        $progreso = new RegistroProgreso;
-        $progreso->altura = $request->altura;
-        $progreso->peso = $request->peso;
-        $progreso->imc = round(($request->peso / ($request->altura * $request->altura)), 2, PHP_ROUND_HALF_UP);
-        $progreso->id_cliente = $request->cliente;
-        $progreso->fecha_registro = Carbon::now()->toDateString();
-        $progreso->save();
-
-        $datos = [
-            'created' => true,
-            'registro' => $progreso,
-        ];
-
-        return \Response::json($datos, 200);
     }
 
     /**
