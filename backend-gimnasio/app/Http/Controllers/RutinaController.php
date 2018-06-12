@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Rutina;
+use App\Cliente;
+use Carbon\Carbon;
 
 class RutinaController extends Controller
 {
@@ -23,10 +25,46 @@ class RutinaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, AuthController $auth)
     {
-        Rutina::create($request->all());
-        return ['created' => true];
+        try {
+            if ($auth->getAuthenticatedUser()->id_rol != 2) {
+                $datos = [
+                    'error' => true,
+                    'mensaje' => 'El usuario no está autorizado para realizar esta acción',
+                ];
+                return \Response::json($datos, 401);
+            }
+
+            $cliente = Cliente::find($request->cliente);
+
+            if (!isset($cliente)) {
+                $datos = [
+                    'error' => true,
+                    'mensaje' => 'No se encontró el cliente de id = ' . $request->cliente,
+                ];
+                return \Response::json($datos, 404);
+            }
+            
+            $rutina = new Rutina();
+            $rutina->id_tipo_rutina = $request->tipo_rutina;
+            $rutina->id_cliente = $cliente->id;
+            $rutina->nombre_rutina = $request->nombre;
+            $rutina->descripcion = $request->descripcion;
+            $rutina->fecha_inicio = Carbon::now()->toDateString();
+            $rutina->fecha_termino = $request->termino;
+            $rutina->save();
+
+            $datos = [
+                'creado' => true,
+                'registro' => $rutina,
+            ];
+
+            return \Response::json($datos, 200);
+
+        } catch (\Exception $e) {
+            return \Response::json('Error: '.$e, 500);
+        }
     }
 
     /**

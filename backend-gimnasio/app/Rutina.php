@@ -10,6 +10,8 @@ class Rutina extends Model
 
     protected $primaryKey = 'id';
 
+    public $timestamps = false;
+
     protected $fillable = [
     	'id_tipo_rutina', 'id_cliente', 'nombre_rutina', 'descripcion', 'fecha_inicio', 'fecha_termino',
     ];
