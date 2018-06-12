@@ -16,7 +16,7 @@ export default {
   data () {
     return {
       idProfile: 0,
-      cliente: []
+      cliente: {}
     }
   },
   mounted () {
