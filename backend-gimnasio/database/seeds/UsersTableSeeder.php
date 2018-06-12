@@ -24,6 +24,12 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'email' => 'd.coronado01@ufromail.cl    ',
+            'password' => bcrypt('1234'),
+            'id_rol' => 2
+        ]);
+
+        /*DB::table('users')->insert([
             'email' => 'd.coronado01@ufromail.cl',
             'password' => bcrypt('1234'),
             'id_rol' => 3
@@ -33,6 +39,6 @@ class UsersTableSeeder extends Seeder
             'email' => 'm.pinilla03@ufromail.cl',
             'password' => bcrypt('1234'),
             'id_rol' => 3
-        ]);
+        ]);*/
     }
 }

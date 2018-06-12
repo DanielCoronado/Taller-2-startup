@@ -28,19 +28,27 @@ class ClientesTableSeeder extends Seeder
         ]);*/
 
         DB::table('clientes')->insert([
+            'id_usuario' => 1,
+            'rut' => '19743329-6',
+            'nombre' => 'Matias',
+            'apellidos' => 'Gutierrez Lucó',
+            'edad' => 21
+        ]);
+
+        DB::table('clientes')->insert([
             'id_usuario' => 2,
             'rut' => '19389833-5',
             'nombre' => 'Felipe',
             'apellidos' => 'Acuña Figueroa',
             'edad' => 21
         ]);
-        
+
         DB::table('clientes')->insert([
-            'id_usuario' => 1,
-            'rut' => '19743329-6',
-            'nombre' => 'Matias',
-            'apellidos' => 'Gutierrez Lucó',
-            'edad' => 21
+            'id_usuario' => 3,
+            'rut' => '18504489-0',
+            'nombre' => 'Daniel',
+            'apellidos' => 'Coronado Mendoza',
+            'edad' => 24
         ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cliente;
 use App\User;
+use DB;
 
 class ClienteController extends Controller
 {
@@ -15,7 +16,23 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return Cliente::all();
+        // return Cliente::all();
+
+        return Cliente::join('users', 'users.id', '=', 'clientes.id_usuario')
+            ->join('rol', 'rol.id', '=', 'users.id_rol')
+            ->select(
+                DB::raw(
+                    'clientes.id,
+                    clientes.nombre, 
+                    clientes.apellidos,
+                    users.email,
+                    clientes.rut,
+                    clientes.edad,
+                    users.id_rol,
+                    rol.descripcion as rol'
+                ))
+            ->orderBy('clientes.id')
+            ->get();
     }
 
     /**
@@ -78,5 +95,23 @@ class ClienteController extends Controller
     {
         Cliente::destroy($id);
         return ['deleted' => true];
+    }
+
+    public function entrenadores() {
+        return Cliente::join('users', 'users.id', '=', 'clientes.id_usuario')
+            ->join('rol', 'rol.id', '=', 'users.id_rol')
+            ->select(
+                DB::raw(
+                    'clientes.id,
+                    clientes.nombre, 
+                    clientes.apellidos,
+                    users.email,
+                    clientes.rut,
+                    clientes.edad,
+                    users.id_rol,
+                    rol.descripcion as rol'
+                ))
+            ->where('users.id_rol', 2)
+            ->get();
     }
 }

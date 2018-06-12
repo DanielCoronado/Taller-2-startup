@@ -131,7 +131,6 @@
           <td class="text-xs-left">{{ clientes.item.rut }}</td>
           <td class="text-xs-left">{{ clientes.item.nombre }}</td>
           <td class="text-xs-left">{{ clientes.item.apellidos }}</td>
-          <td class="text-xs-left">{{ clientes.item.edad }}</td>
           <td>
             <v-btn icon @click="goToUserProfile(clientes.item.id)">
               <v-icon>person</v-icon>
@@ -163,7 +162,6 @@ export default {
         { text: 'Rut', value: 'rut' },
         { text: 'Nombre', value: 'nombre' },
         { text: 'Apellidos', value: 'apellidos' },
-        { text: 'Edad', value: 'edad' },
         { text: 'Perfil' }
       ],
       clientes: [],

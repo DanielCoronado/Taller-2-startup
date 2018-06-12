@@ -18,6 +18,8 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 
 	Route::resource('clientes' , 'ClienteController');
 
+	Route::get('entrenadores', 'ClienteController@entrenadores');
+
 	Route::resource('roles' , 'RolController');
 
 	Route::resource('rutinas' , 'RutinaController');

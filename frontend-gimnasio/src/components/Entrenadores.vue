@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import {userService} from '@/services/User.service'
+import {entrenadoresService} from '@/services/Entrenadores.service'
 
 export default {
   data () {
@@ -65,7 +65,7 @@ export default {
   },
   mounted () {
     let vm = this
-    userService.query().then(data => {
+    entrenadoresService.query().then(data => {
       vm.entrenadores = data.body
       console.log(vm.entrenadores)
     }, erro => {

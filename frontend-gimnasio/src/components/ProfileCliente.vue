@@ -23,6 +23,7 @@ export default {
 
     clienteService.getById(vm.idProfile).then(data => {
       vm.cliente = data.body
+      console.log(vm.cliente)
     })
   }
 }
