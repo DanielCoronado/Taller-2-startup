@@ -132,6 +132,11 @@
           <td class="text-xs-left">{{ clientes.item.nombre }}</td>
           <td class="text-xs-left">{{ clientes.item.apellidos }}</td>
           <td class="text-xs-left">{{ clientes.item.edad }}</td>
+          <td>
+            <v-btn icon @click="goToUserProfile(clientes.item.id)">
+              <v-icon>person</v-icon>
+            </v-btn>
+          </td>
         </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Su búsqueda "{{ search }}" no arrojó resultados.
@@ -158,7 +163,8 @@ export default {
         { text: 'Rut', value: 'rut' },
         { text: 'Nombre', value: 'nombre' },
         { text: 'Apellidos', value: 'apellidos' },
-        { text: 'Edad', value: 'edad' }
+        { text: 'Edad', value: 'edad' },
+        { text: 'Perfil' }
       ],
       clientes: [],
       nuevoCliente: {},
@@ -189,6 +195,10 @@ export default {
         alert('ERROR. Intente nuevamente')
         console.log(err)
       })
+    },
+    goToUserProfile (id) {
+      let vm = this
+      vm.$router.push({name: 'userprofile', params: {id: id}})
     }
   }
 }

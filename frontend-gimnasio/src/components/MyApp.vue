@@ -45,7 +45,7 @@
         </v-list-tile>
       </v-list>
       <v-list class="pt-0" dense style="background: transparent;" v-if="user.rol == 'Secretaria'">
-        <v-list-tile @click="goHome()">
+        <v-list-tile @click="goToEntrenadores()">
           <v-list-tile-action>
             <v-icon>directions_run</v-icon>
           </v-list-tile-action>
@@ -119,6 +119,10 @@ export default {
     goToClientes () {
       let vm = this
       vm.$router.push('/clientes')
+    },
+    goToEntrenadores () {
+      let vm = this
+      vm.$router.push('/entrenadores')
     }
   },
   name: 'App'

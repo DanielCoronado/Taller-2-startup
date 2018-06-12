@@ -5,6 +5,8 @@ import MyApp from '@/components/MyApp'
 import Login from '@/components/Login'
 import Credentials from '@/services/Credentials.service.js'
 import Clientes from '@/components/Clientes'
+import Entrenadores from '@/components/Entrenadores'
+import ProfileCliente from '@/components/ProfileCliente'
 
 Vue.use(Router)
 
@@ -24,6 +26,15 @@ const router = new Router({
         {
           path: '/clientes',
           component: Clientes
+        },
+        {
+          path: '/entrenadores',
+          component: Entrenadores
+        },
+        {
+          name: 'userprofile',
+          path: '/userprofile/:id',
+          component: ProfileCliente
         }
       ]
     },
