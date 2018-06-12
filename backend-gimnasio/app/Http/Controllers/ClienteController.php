@@ -68,7 +68,24 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        return Cliente::find($id);
+        // return Cliente::find($id);
+
+        return Cliente::join('users', 'users.id', '=', 'clientes.id_usuario')
+            ->join('rol', 'rol.id', '=', 'users.id_rol')
+            ->select(
+                DB::raw(
+                    'clientes.id,
+                    clientes.nombre, 
+                    clientes.apellidos,
+                    users.email,
+                    clientes.rut,
+                    clientes.edad,
+                    users.id_rol,
+                    rol.descripcion as rol'
+                ))
+            ->where('clientes.id', $id)
+            ->orderBy('clientes.id')
+            ->first();
     }
 
     /**
