@@ -35,12 +35,12 @@
         </v-flex>
         <v-flex xs12 sm6 md5 text-xs-center>
           <v-card dark flat style="background-color: #363636;">
-            <h3 class="text-sm-left display-1" style="padding-top: 15px; padding-bottom: 20px;">Rutinas</h3>
+            <h3 class="text-sm-left display-1" style="padding-top: 15px; padding-bottom: 20px;">Horarios</h3>
           </v-card>
         </v-flex>
         <v-flex xs12 md3 text-xs-center>
           <v-card dark flat style="background-color: #363636;">
-            <h3 class="text-sm-left display-1" style="padding-top: 15px; padding-bottom: 20px;">Otros</h3>
+            <h3 class="text-sm-left display-1" style="padding-top: 15px; padding-bottom: 20px;">Rutinas</h3>
           </v-card>
         </v-flex>
       </v-layout>

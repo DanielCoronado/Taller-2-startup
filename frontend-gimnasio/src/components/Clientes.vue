@@ -49,6 +49,17 @@
                         >
                       </v-text-field>
                     </v-flex>
+                    <v-flex xs12>
+                      <v-select
+                        dark
+                        :items="items"
+                        v-model="nuevoCliente.id_rol"  
+                        label="Tipo de Usuario"
+                        :rules="rules"
+                        required
+                        single-line
+                      ></v-select>
+                    </v-flex>
                   </v-layout>
                 </v-container>
               </v-card-text>
@@ -171,6 +182,10 @@ export default {
       dialog: false,
       rules: [
         v => !!v || 'Campo Requerido'
+      ],
+      items: [
+        { text: 'Entrenador', value: 2 },
+        { text: 'Cliente', value: 3 }
       ]
     }
   },
@@ -188,6 +203,7 @@ export default {
       let vm = this
       clienteService.save(nuevoCliente).then(data => {
         vm.nuevoCliente = data.body
+        console.log(vm.nuevoCliente)
         vm.clientes.push(nuevoCliente)
         vm.dialog = false
         vm.nuevoCliente = {}
