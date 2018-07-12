@@ -105,13 +105,28 @@
             </v-expansion-panel>
           </v-card>
         </v-flex>
-        <v-flex xs12 md6 text-xs-center>
+        <v-flex xs12 md5 text-xs-center>
           <v-card dark flat style="background-color: #363636;" class="white--text" v-for="rutina in rutinas" :key="rutina.id">
+            <h3 class="text-sm-left display-1" style="padding-top: 15px; padding-bottom: 20px;">Rutinas</h3>
             <v-card-title primary-title>
               <div>{{ rutina.id }}</div>
               <div class="text-xs-left">{{ rutina.nombre_rutina }}</div>
             </v-card-title>
             <v-card-actions>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+        <v-flex xs12 md3 text-xs-center>
+          <v-card dark flat style="background-color: #363636;" class="white--text" v-for="progreso in progresos" :key="progreso.id">
+            <h3 class="text-sm-left display-1" style="padding-top: 15px; padding-bottom: 20px;">Progreso</h3>
+            <v-card-title primary-title>
+              <div>id_cliente: {{ progreso.id_cliente }}</div>
+            </v-card-title>
+            <v-card-actions>
+              <div class="text-xs-left">{{ progreso.altura }}</div>
+              <div class="text-xs-left">{{ progreso.peso }}</div>
+              <div class="text-xs-left">{{ progreso.imc }}</div>
+              <div class="text-xs-left">{{ progreso.fecha_registro }}</div>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -123,6 +138,7 @@
 <script>
 import {clienteService} from '@/services/Clientes.service'
 import {rutinaService} from '@/services/Rutinas.service'
+import {progresoService} from '@/services/Progreso.service'
 
 export default {
   data () {
@@ -131,6 +147,7 @@ export default {
       cliente: {},
       updateCliente: {},
       rutinas: [],
+      progresos: [],
       dialog: false,
       rules: [
         v => !!v || 'Campo Requerido'
@@ -158,6 +175,13 @@ export default {
     rutinaService.query().then(data => {
       vm.rutinas = data.body
       console.log(vm.rutinas)
+    }, erro => {
+      console.log('error')
+    })
+
+    progresoService.query().then(data => {
+      vm.progresos = data.body
+      console.log(vm.progresos)
     }, erro => {
       console.log('error')
     })

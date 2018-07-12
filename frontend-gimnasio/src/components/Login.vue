@@ -72,9 +72,9 @@ export default {
         vm.credentialService.setCurrentUser(data.body.users)
         var rol = data.body.users.rol
         if (rol === 'Secretaria') {
-          vm.$router.push('/')
+          vm.$router.push('/clientes')
         } else if (rol === 'Entrenador') {
-          vm.$router.push('/')
+          vm.$router.push('/clientes')
         }
       }, () => {
         vm.errorLogin = true
