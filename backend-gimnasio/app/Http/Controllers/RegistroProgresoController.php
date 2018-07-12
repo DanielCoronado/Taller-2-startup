@@ -113,4 +113,36 @@ class RegistroProgresoController extends Controller
         RegistroProgreso::destroy($id);
         return ['deleted' => true];
     }
+    
+    public function registrosLogueado(AuthController $auth) {
+        $registros = RegistroProgreso::select('registro_progreso.id', 'registro_progreso.peso', 'registro_progreso.imc', 'registro_progreso.fecha_registro')
+            ->where('id_cliente', '=', $auth->getAuthenticatedUser()->cliente->id)
+            ->get();
+        return $registros;
+    }
+
+    public function registrosCliente($idCliente) {
+        try {
+            $cliente = Cliente::find($idCliente);
+            
+            if (!isset($cliente)) {
+                $datos = [
+                    'error' => true,
+                    'mensaje' => 'No se encontró el cliente de id = ' . $idCliente,
+                ];
+                return \Response::json($datos, 404);
+            }
+
+            $registros = RegistroProgreso::where('id_cliente', $idCliente)->get();
+
+            $datos = [
+                'creado' => 'true',
+                'rutinas' => $registros,
+            ];
+
+            return \Response::json($datos, 200);
+        } catch (\Exception $e) {
+            return \Response::json('Error: '.$e, 500);
+        }
+    }
 }

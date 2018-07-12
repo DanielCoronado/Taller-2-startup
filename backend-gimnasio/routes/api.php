@@ -17,6 +17,10 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 	Route::get('rutinascliente/{id}', 'RutinaController@rutinasCliente');
 
 	Route::get('rutinaslogueado', 'RutinaController@rutinasLogueado');
+	
+	Route::get('registroscliente/{id}', 'RegistroProgresoController@registrosCliente');
+
+	Route::get('registroslogueado', 'RegistroProgresoController@registrosLogueado');
 
 	Route::get('entrenadores', 'ClienteController@entrenadores');
 
