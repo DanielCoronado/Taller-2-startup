@@ -23,6 +23,7 @@ class ClienteController extends Controller
             ->select(
                 DB::raw(
                     'clientes.id,
+                    clientes.id_usuario,
                     clientes.nombre, 
                     clientes.apellidos,
                     users.email,
@@ -76,6 +77,7 @@ class ClienteController extends Controller
             ->select(
                 DB::raw(
                     'clientes.id,
+                    clientes.id_usuario,
                     clientes.nombre, 
                     clientes.apellidos,
                     users.email,
@@ -121,6 +123,7 @@ class ClienteController extends Controller
             ->select(
                 DB::raw(
                     'clientes.id,
+                    clientes.id_usuario,
                     clientes.nombre, 
                     clientes.apellidos,
                     users.email,

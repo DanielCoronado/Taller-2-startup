@@ -19,7 +19,7 @@
           <v-dialog v-model="dialog" persistent max-width="500px">
             <v-btn slot="activator" style="color: #99b898;" dark>Agregar Cliente</v-btn>
             <v-card style="background: linear-gradient(0.25turn, #2a363b, #363636);">
-              <v-card-title>
+              <v-card-title style="margin-bottom: -30px;">
                 <span style="color: #99b898;" class="headline">Cuenta de Cliente</span>
               </v-card-title>
               <v-card-text>
@@ -64,7 +64,7 @@
                 </v-container>
               </v-card-text>
 
-              <v-card-title>
+              <v-card-title style="margin-bottom: -30px;">
                 <span style="color: #99b898;" class="headline">Datos del Cliente</span>
               </v-card-title>
               <v-card-text>

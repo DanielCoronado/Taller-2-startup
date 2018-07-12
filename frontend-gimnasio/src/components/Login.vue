@@ -19,7 +19,7 @@
                 <v-flex xs8 offset-xs2>
                   <v-form>
                     <v-text-field
-                      label="Correo Electronico"
+                      label="Correo Electrónico"
                       type="email"
                       v-model="credentials.email"
                       color="light-green lighten-1"
