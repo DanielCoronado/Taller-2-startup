@@ -33,7 +33,7 @@ class User extends Authenticatable
         return $this->belongsTo(Rol::class, 'id_rol');
     }
 
-    public function clientes() {
-        return $this->hasMany(Cliente::class, 'id_usuario');
+    public function cliente() {
+        return $this->hasOne(Cliente::class, 'id_usuario');
     }
 }

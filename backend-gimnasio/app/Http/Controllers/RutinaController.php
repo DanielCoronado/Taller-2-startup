@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Rutina;
 use App\Cliente;
 use Carbon\Carbon;
+use App\Http\Controllers\AuthController;
 
 class RutinaController extends Controller
 {
@@ -14,9 +15,11 @@ class RutinaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(AuthController $auth)
     {
-        return Rutina::all();
+        //logger($auth->getAuthenticatedUser());
+        $rutinas = Rutina::select('nombre_rutina', 'descripcion', 'fecha_inicio', 'fecha_termino')->where('id_cliente', '=', $auth->getAuthenticatedUser()->cliente->id)->get();
+        return $rutinas;
     }
 
     /**
@@ -28,7 +31,7 @@ class RutinaController extends Controller
     public function store(Request $request, AuthController $auth)
     {
         try {
-            if ($auth->getAuthenticatedUser()->id_rol != 2) {
+            if ($auth::getAuthenticatedUser()->id_rol != 2) {
                 $datos = [
                     'error' => true,
                     'mensaje' => 'El usuario no está autorizado para realizar esta acción',
@@ -75,7 +78,17 @@ class RutinaController extends Controller
      */
     public function show($id)
     {
-        return Rutina::find($id);
+        $rutina = Rutina::find($id);
+
+        if (!isset($rutina)) {
+            $datos = [
+                'error' => true,
+                'mensaje' => 'No se encontró la rutina de id = ' . $request->rutina,
+            ];
+            return \Response::json($datos, 404);
+        }
+        
+        return $rutina;
     }
 
     /**

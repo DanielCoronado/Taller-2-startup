@@ -77,10 +77,10 @@ class RegistroProgresoController extends Controller
     {
         $progreso = RegistroProgreso::find($id);
 
-        if (!isset($cliente)) {
+        if (!isset($progreso)) {
             $datos = [
                 'error' => true,
-                'mensaje' => 'No se encontró el cliente de id = ' . $request->cliente,
+                'mensaje' => 'No se encontró el registro de progeso de id = ' . $request->progreso,
             ];
             return \Response::json($datos, 404);
         }
