@@ -14,11 +14,15 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => ['jwt.auth']], function () {
+	Route::get('rutinascliente/{id}', 'RutinaController@rutinasCliente');
+
+	Route::get('rutinaslogueado', 'RutinaController@rutinasLogueado');
+
 	Route::resource('users' , 'UserController');
 
 	Route::resource('clientes' , 'ClienteController');
 
-	Route::get('entrenadores', 'ClienteController@entrenadores');
+	Route::resource('entrenadores', 'ClienteController@entrenadores');
 
 	Route::resource('roles' , 'RolController');
 

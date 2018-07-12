@@ -15,11 +15,9 @@ class RutinaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(AuthController $auth)
+    public function index()
     {
-        //logger($auth->getAuthenticatedUser());
-        $rutinas = Rutina::select('nombre_rutina', 'descripcion', 'fecha_inicio', 'fecha_termino')->where('id_cliente', '=', $auth->getAuthenticatedUser()->cliente->id)->get();
-        return $rutinas;
+        return Rutina::all();
     }
 
     /**
@@ -115,5 +113,38 @@ class RutinaController extends Controller
     {
         Rutina::destroy($id);
         return ['deleted' => true];
+    }
+
+    public function rutinasLogueado(AuthController $auth) {
+        $rutinas = Rutina::join('tipo_rutina', 'rutina.id_tipo_rutina', '=', 'tipo_rutina.id')
+            ->select('rutina.id', 'rutina.nombre_rutina as nombre', 'descripcion', 'fecha_inicio', 'fecha_termino', 'nombre_tipo as tipo')
+            ->where('id_cliente', '=', $auth->getAuthenticatedUser()->cliente->id)
+            ->get();
+        return $rutinas;
+    }
+
+    public function rutinasCliente($idCliente) {
+        try {
+            $cliente = Cliente::find($idCliente);
+            
+            if (!isset($cliente)) {
+                $datos = [
+                    'error' => true,
+                    'mensaje' => 'No se encontró el cliente de id = ' . $idCliente,
+                ];
+                return \Response::json($datos, 404);
+            }
+
+            $rutinas = Rutina::where('id_cliente', $idCliente)->get();
+
+            $datos = [
+                'creado' => 'true',
+                'rutinas' => $rutinas,
+            ];
+
+            return \Response::json($datos, 200);
+        } catch (\Exception $e) {
+            return \Response::json('Error: '.$e, 500);
+        }
     }
 }
