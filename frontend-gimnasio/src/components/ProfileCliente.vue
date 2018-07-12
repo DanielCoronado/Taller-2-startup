@@ -106,8 +106,8 @@
           </v-card>
         </v-flex>
         <v-flex xs12 md5 text-xs-center>
+          <h3 class="text-sm-left display-1" style="padding-top: 15px; padding-bottom: 20px;">Rutinas</h3>
           <v-card dark flat style="background-color: #363636;" class="white--text" v-for="rutina in rutinas" :key="rutina.id">
-            <h3 class="text-sm-left display-1" style="padding-top: 15px; padding-bottom: 20px;">Rutinas</h3>
             <v-card-title primary-title>
               <div>{{ rutina.id }}</div>
               <div class="text-xs-left">{{ rutina.nombre_rutina }}</div>
@@ -117,8 +117,8 @@
           </v-card>
         </v-flex>
         <v-flex xs12 md3 text-xs-center>
+          <h3 class="text-sm-left display-1" style="padding-top: 15px; padding-bottom: 20px;">Progreso</h3>
           <v-card dark flat style="background-color: #363636;" class="white--text" v-for="progreso in progresos" :key="progreso.id">
-            <h3 class="text-sm-left display-1" style="padding-top: 15px; padding-bottom: 20px;">Progreso</h3>
             <v-card-title primary-title>
               <div>id_cliente: {{ progreso.id_cliente }}</div>
             </v-card-title>
@@ -137,8 +137,8 @@
 
 <script>
 import {clienteService} from '@/services/Clientes.service'
-import {rutinaService} from '@/services/Rutinas.service'
-import {progresoService} from '@/services/Progreso.service'
+import {rutinaClienteService} from '@/services/RutinasCliente.service'
+import {registroClienteService} from '@/services/RegistrosCliente.service'
 
 export default {
   data () {
@@ -146,7 +146,7 @@ export default {
       idProfile: 0,
       cliente: {},
       updateCliente: {},
-      rutinas: [],
+      rutinas: {},
       progresos: [],
       dialog: false,
       rules: [
@@ -172,15 +172,15 @@ export default {
       console.log(vm.cliente)
     })
 
-    rutinaService.query().then(data => {
-      vm.rutinas = data.body
-      console.log(vm.rutinas)
+    rutinaClienteService.getById(vm.idProfile).then(data => {
+      vm.rutinas = data.body.rutinas
+      console.log(data.body)
     }, erro => {
       console.log('error')
     })
 
-    progresoService.query().then(data => {
-      vm.progresos = data.body
+    registroClienteService.getById(vm.idProfile).then(data => {
+      vm.progresos = data.body.rutinas
       console.log(vm.progresos)
     }, erro => {
       console.log('error')
