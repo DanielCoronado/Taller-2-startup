@@ -18,11 +18,11 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 
 	Route::get('rutinaslogueado', 'RutinaController@rutinasLogueado');
 
+	Route::get('entrenadores', 'ClienteController@entrenadores');
+
 	Route::resource('users' , 'UserController');
 
 	Route::resource('clientes' , 'ClienteController');
-
-	Route::resource('entrenadores', 'ClienteController@entrenadores');
 
 	Route::resource('roles' , 'RolController');
 
