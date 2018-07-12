@@ -23,17 +23,6 @@
           </v-list-tile>
         </v-list>
       </v-toolbar>
-      <v-list class="pt-0" dense style="background: transparent;">
-        <v-divider></v-divider>
-        <v-list-tile @click="goHome()">
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
       <v-list class="pt-0" dense style="background: transparent;" v-if="user.rol == 'Secretaria'">
         <v-list-tile @click="goToClientes()">
           <v-list-tile-action>
@@ -55,7 +44,7 @@
         </v-list-tile>
       </v-list>
       <v-list class="pt-0" dense style="background: transparent;" v-if="user.rol == 'Entrenador'">
-        <v-list-tile @click="goHome()">
+        <v-list-tile @click="goToRutinas()">
           <v-list-tile-action>
             <v-icon>fitness_center</v-icon>
           </v-list-tile-action>
@@ -112,10 +101,6 @@ export default {
       vm.credenciales.clearCredentials()
       vm.$router.push('/login')
     },
-    goHome () {
-      let vm = this
-      vm.$router.push('/')
-    },
     goToClientes () {
       let vm = this
       vm.$router.push('/clientes')
@@ -123,6 +108,10 @@ export default {
     goToEntrenadores () {
       let vm = this
       vm.$router.push('/entrenadores')
+    },
+    goToRutinas () {
+      let vm = this
+      vm.$router.push('/rutinas')
     }
   },
   name: 'App'

@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import MyApp from '@/components/MyApp'
 import Login from '@/components/Login'
 import Credentials from '@/services/Credentials.service.js'
 import Clientes from '@/components/Clientes'
 import Entrenadores from '@/components/Entrenadores'
 import ProfileCliente from '@/components/ProfileCliente'
+import Rutinas from '@/components/Rutinas'
+import VerRutinas from '@/components/VerRutinas'
 
 Vue.use(Router)
 
@@ -20,10 +21,6 @@ const router = new Router({
       component: MyApp,
       children: [
         {
-          path: '/',
-          component: HelloWorld
-        },
-        {
           path: '/clientes',
           component: Clientes
         },
@@ -35,6 +32,15 @@ const router = new Router({
           name: 'userprofile',
           path: '/userprofile/:id',
           component: ProfileCliente
+        },
+        {
+          path: '/rutinas',
+          component: Rutinas
+        },
+        {
+          name: 'verrutinas',
+          path: '/verRutinas',
+          component: VerRutinas
         }
       ]
     },

@@ -3,7 +3,7 @@
     <v-container>
       <v-card>
         <v-card-title>
-          <h2>Entrenadores</h2>
+          <h2>Rutinas</h2>
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"
@@ -18,17 +18,17 @@
         <v-divider></v-divider>
         <v-data-table
           :headers="headers"
-          :items="entrenadores"
+          :items="rutinas"
           :search="search"
         >
-          <template slot="items" slot-scope="entrenadores">
-            <td>{{ entrenadores.item.id }}</td>
-            <td class="text-xs-left">{{ entrenadores.item.rut }}</td>
-            <td class="text-xs-left">{{ entrenadores.item.nombre }}</td>
-            <td class="text-xs-left">{{ entrenadores.item.apellidos }}</td>
-            <td class="text-xs-left">{{ entrenadores.item.edad }}</td>
+          <template slot="items" slot-scope="rutinas">
+            <td>{{ rutinas.item.id }}</td>
+            <td class="text-xs-left">{{ rutinas.item.nombre_rutina }}</td>
+            <td class="text-xs-left">{{ rutinas.item.descripcion }}</td>
+            <td class="text-xs-left">{{ rutinas.item.fecha_inicio }}</td>
+            <td class="text-xs-left">{{ rutinas.item.fecha_termino }}</td>
             <td>
-              <v-btn icon @click="goToUserProfile(entrenadores.item.id)">
+              <v-btn icon @click="goToRutina(rutinas.item.id)">
                 <v-icon>person</v-icon>
               </v-btn>
             </td>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import {entrenadoresService} from '@/services/Entrenadores.service'
+import {rutinaService} from '@/services/Rutinas.service'
 
 export default {
   data () {
@@ -56,28 +56,28 @@ export default {
           sortable: false,
           value: 'id'
         },
-        { text: 'Rut', value: 'rut' },
-        { text: 'Nombre', value: 'nombre' },
-        { text: 'Apellidos', value: 'apellidos' },
-        { text: 'Edad', value: 'edad' },
-        { text: 'Perfil' }
+        { text: 'Nombre Rutina', value: 'nombre_rutina' },
+        { text: 'Descripción', value: 'descripcion' },
+        { text: 'Fecha Inicio', value: 'fecha_inicio' },
+        { text: 'Fecha Término', value: 'fecha_termino' },
+        { text: 'Rutina' }
       ],
-      entrenadores: []
+      rutinas: []
     }
   },
   mounted () {
     let vm = this
-    entrenadoresService.query().then(data => {
-      vm.entrenadores = data.body
-      console.log(vm.entrenadores)
+    rutinaService.query().then(data => {
+      vm.rutinas = data.body
+      console.log(vm.rutinas)
     }, erro => {
       console.log('error')
     })
   },
   methods: {
-    goToUserProfile (id) {
+    goToRutina (id) {
       let vm = this
-      vm.$router.push({name: 'userprofile', params: {id: id}})
+      vm.$router.push({name: 'verrutinas', params: {id: id}})
     }
   }
 }
